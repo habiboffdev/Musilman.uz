@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,400;1,900&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" href = "{% static 'css/semantic/dist/semantic.min.css' %}">
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <style>
+        @media only screen and (max-width: 500px) {
+  body {
+      max-width: 500px;
+
+  }
+}
+    </style>
+
+    <script src="{% static 'css/semantic/dist/semantic.min.js' %}"></script>
+    <link  href="{% static 'css/style.scss' %}" rel="stylesheet/less" type="text/css">
+
+    <title>{%block title%}{% endblock title%}</title>
+</head>
+<body>
+    
+    
+    <div class="ui header segment">
+        <a href="#" class="ui header">
+            <img class="ui logo" src="{% static 'logo.jpg' %}" style = "width: 7%; vertical-align: middle; ">
+        
+            Qur'on oyatlari va tarjimasi
+            
+        </a>
+    </div>
+    <div class="ui container">
+    {% block content%}
+    {% endblock content %}
+    </div>
+    </main>
+</body>
+</html>

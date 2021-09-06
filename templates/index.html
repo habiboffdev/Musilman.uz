@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{%block title%}Bosh sahifa{% endblock title%}
+{% load static%}
+{% block content %}
+<body >
+  <div class="ui basic modal">
+    <div class="ui icon header">
+      <i class="archive icon"></i>
+      Assalomu aleykum va rahmatullahi va barakatuh
+    </div>
+    <div class="content">
+      <p>Saytimizga xush kelibsiz. Saytimizda Qu'roni karimning tarjimasini topishingiz mumkin. 
+        Bundan tashqari, Namoz vaqtlari, Qazo namoz hisoblovchisi ham sizga muhayyo!</p>
+    </div>
+    <div class="actions">
+      <div class="ui red basic cancel inverted button">
+        <i class="remove icon"></i>
+        Yopish
+      </div>
+      <div class="ui green ok inverted button">
+        <i class="checkmark icon"></i>
+        Tushundim
+      </div>
+    </div>
+  </div>
+        <div class="ui placeholder segment" >
+            <div class="ui icon header">
+                Sura nomini yoki raqamini yozing
+            </div>
+        <div class="inline" style="width:90%">
+            <div class="ui massive form search">
+                <form method="GET" action = 'search/' class="ui icon input " style="width: 100%;" onload="show()">
+                  {% csrf_token %}
+                            <input name="q"  class="prompt" type="text" placeholder="Qidirish uchun" " name="q">
+                            <i class="search icon"></i>
+                </form>
+                <div class="results"></div>
+                <script>
+        
+                    let content = [
+  { title: '' },];
+
+  </script>
+  {% for l,s in json.items %}
+  <script>
+      content.push({ title: '{{s}}'});
+  </script>
+    {%endfor%}
+<script>
+                    $('.ui.search')
+  .search({
+    source: content
+  })
+;           
+              </script>
+            </div>
+        </div>
+        </div>
+        <div class="ui very padded green segment" >
+            <h3 style="position: absolute; left: 45%; bottom: 50%;">Hozirgi vaqt</h3>
+            <div id="MyClockDisplay" class="clock" onload="showTime()" style="
+                position: absolute;
+                top: 59%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                color: black;
+                letter-spacing: 0.10em;
+                font-size: 40px;
+                padding: 5px 0;
+                font-family: 'Share Tech Mono', monospace;">
+                <script>
+                   showTime();
+                </script>
+                
+            </div>
+        </div>
+
+<h1 class="ui icon header" style="margin-left: 40%;">Namoz vaqtlari</h1>
+<form action="" method="get">
+  <div class="ui accordion">
+    <div class="title">
+      <i class="dropdown icon"></i>
+      Shahar
+    </div>
+    <div class="content">
+      <div class="ui vertical basic buttons">
+      <button class="ui positive  button" name="city" value="tashkent">Toshkent</button>
+      <button class="ui positive  button" name="city" value="fergana" >Fergana</button>
+      <button class="ui positive  button" name="city" value="bukhara" >Buxoro</button>
+    </div>
+    <div class="ui vertical basic buttons">
+      <button class="ui positive  button" name="city" value="khiva" >Xiva</button>
+      <button class="ui positive  button" name="city" value="gulistan" >Guliston</button>
+      <button class="ui positive  button" name="city" value="andijan" >Andijon</button>
+    </div><div class="ui vertical basic buttons">
+      <button class="ui positive  button" name="city" value="namangan" >Namangan</button>
+      <button class="ui positive  button" name="city" value="samarkand" >Samarqand</button>
+      <button class="ui positive  button" name="city" value="namangan" >Namangan</button>
+    </div><div class="ui vertical basic buttons">
+      <button class="ui positive  button" name="city" value="qarshi" >Qarshi</button>
+      <button class="ui positive  button" name="city" value="baysun" >Baysun</button>
+      <button class="ui positive  button" name="city" value="zomin" >Zomin</button>
+    </div><div class="ui vertical basic buttons">
+      <button class="ui positive  button" name="city" value="sirdaryo" >Sirdaryo</button>
+      <button class="ui positive  button" name="city" value="navoi" >Navoiy</button>
+      <button class="ui positive  button" name="city" value="nukus" >Nukus</button>
+    </div>
+    </div>
+
+    </div>
+  </form>
+    <script>
+      $('.ui.accordion')
+.accordion()
+;
+
+    </script>
+    <table class="ui celled table" >
+        <caption>Хотиржам бўлганингизда намозни тўлиқ адо этинг. Албатта, намоз мўминларга вақтида фарз қилингандир.<a href='http://127.0.0.1:8000/search/?q=An-Nisaa%27'>(An-Nisaa,103)</a></caption>
+        <thead>
+          <tr>
+            <th>Namoz nomi</th>
+            <th>Namoz vaqti</th>
+            <th><i class="icon checkmark green"></i> |  <i class="icon close red"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <form method="POST" class="ui icon input" action="qazo">
+          <tr class="positive">
+            <td>Bomdod</td>
+            <td>{{bomdod}}</td>
+            <td class="positive">            <input class="ui checkbox" name="qazo" value=1 type="checkbox"  id="o'qildi">
+              <label class="ui checkbox label" for="o'qildi" >O'qidim</label>
+              <input class="ui checkbox" name="qazo" value=0 type="checkbox" id="qazo">
+              <label class="ui checkbox label" for="qazo" >O'qimadim</label></td>
+          </tr>
+          <tr class="positive">
+            <td>Peshin</td>
+            <td>{{peshin}}</td>
+            <td>            <input class="ui checkbox" name="qazo" value=1 type="checkbox"  id="o'qildi">
+              <label class="ui checkbox label" for="o'qildi" >O'qidim</label>
+              <input class="ui checkbox" name="qazo" value=0 type="checkbox" id="qazo">
+              <label class="ui checkbox label" for="qazo" >O'qimadim</label></td>
+          </tr>
+          <tr class="positive">
+            <td>Asr</td>
+            <td>{{asr}}</td>
+            <td class="positive">            <input class="ui checkbox" name="qazo" value=1 type="checkbox"  id="o'qildi">
+              <label class="ui checkbox label" for="o'qildi" >O'qidim</label>
+              <input class="ui checkbox" name="qazo" value=0 type="checkbox" id="qazo">
+              <label class="ui checkbox label" for="qazo" >O'qimadim</label></td>
+          </tr>
+          <tr class="positive">
+            <td>Shom</td>
+            <td>{{shom}}</td>
+            <td>            <input class="ui checkbox" name="qazo" value=1 type="checkbox"  id="o'qildi">
+              <label class="ui checkbox label" for="o'qildi" >O'qidim</label>
+              <input class="ui checkbox" name="qazo" value=0 type="checkbox" id="qazo">
+              <label class="ui checkbox label" for="qazo" >O'qimadim</label></td>
+          </tr>
+          <tr class="positive">
+            <td>Xufton</td>
+            <td>{{xufton}}</td>
+            <td>
+              {% csrf_token %}
+
+            <input class="ui checkbox" name="xuftonqazo" value=1 type="checkbox"  id="o'qildi">
+            <label class="ui checkbox label" for="o'qildi" >O'qidim</label>
+            <input class="ui checkbox" name="xuftonqazo" value=0 type="checkbox" id="qazo">
+            <label class="ui checkbox label" for="qazo" >O'qimadim</label>
+            <script>
+$( document ).ready(function() {
+    $('input[type="checkbox"]').on('change', function() {
+      var checkedValue = $(this).prop('checked');
+        // uncheck sibling checkboxes (checkboxes on the same row)
+        $(this).closest('tr').find('input[type="checkbox"]').each(function(){
+           $(this).prop('checked',false);
+        });
+        $(this).prop("checked",checkedValue);
+
+    });
+});
+$('.ui.basic.modal')
+  .modal('show')
+;
+              </script>
+              
+
+
+
+          </td>
+          </tr>
+        </table>
+
+        </tbody>
+        <button type="submit" class="ui icon button" data-content="Add users to your feed" style="margin: 15px;">Saqlash</button>
+      </form>
+     
+        {%endblock content%}
+    
+    </body>

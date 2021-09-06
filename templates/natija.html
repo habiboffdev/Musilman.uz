@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static%}
+<head>
+  {%block title%}{{sura}}{%endblock title %}
+    <style>
+        .collapsible {
+          background-color: #777;
+          color: white;
+          cursor: pointer;
+          padding: 18px;
+          width: 100%;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+        }
+        
+        .active, .collapsible:hover {
+          background-color: #555;
+        }
+        
+        .content {
+          padding: 0 18px;
+          display: none;
+          overflow: hidden;
+          background-color: #f1f1f1;
+        }
+        </style>
+    </head>
+{% block content %}
+<body style="background-image: url({% static 'back.jpg' %});"> 
+    <div class="ui stacked segment">
+
+    <h2 class="ui header">Sura nomi:  {{data.surah_name }}</h2>
+    <h2 class="ui header">Sura raqami:  {{data.surah_number }}</h2>
+    <h2 class="ui header">Sura nozil bo'lgan shahar:  {{data.surah_r_city }}</h2>
+    <h2 class="ui header">Suradagi oyatlar soni:  {{data.surah_ayahs_number  }}</h2>
+    
+    <div class="ui search">
+    <hr>
+    {% for l,oyat in tafsir.items%}
+    <h4 class="ui header" id="{{l}}">{{l}}.{{oyat | first}}</h4>
+    <button type="button" class="collapsible" style="background: rgb(28,204,48);
+    background: linear-gradient(90deg, rgba(28,204,48,1) 0%, rgba(37,193,76,1) 35%, rgba(14,197,205,1) 100%, rgba(0,212,255,1) 100%);
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    "><i class="angle down icon"></i>Audio</button>
+    <div class="content" style="  padding: 0 18px;
+    border-radius: 25px;
+    display: none;
+    overflow: hidden;">
+      <audio controls='controls'>
+        <source src="{{oyat | last }}" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+    </div>
+    {%endfor%}
+</div>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+    </script>
+</body>
+{%endblock%}
